@@ -15,7 +15,10 @@ def ping():
         cur = time()
         conn = HTTPConnection(host='google.com', port=HTTP_PORT, timeout=1)
         conn.request("HEAD", "/")
+        response = conn.getresponse()
         conn.close()
+        if response.status != 301:
+            raise
         tm = (time() - cur) * 1000 # to ms
     except:
         pass
